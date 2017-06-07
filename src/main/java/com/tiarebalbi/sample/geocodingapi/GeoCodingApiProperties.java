@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "geocoding.api")
-public class GeocodingApiProperties {
+public class GeoCodingApiProperties {
 
   private String googleKey;
 
