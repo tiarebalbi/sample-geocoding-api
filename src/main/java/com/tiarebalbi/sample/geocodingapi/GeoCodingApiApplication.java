@@ -30,7 +30,7 @@ public class GeoCodingApiApplication {
     }
 
     @Bean
-    public RestTemplate restTemplate(GeoCodingApiProperties geoCodingApiProperties) {
+    public RestTemplate googleRestTemplate(GeoCodingApiProperties geoCodingApiProperties) {
       RestTemplate restTemplate = new RestTemplate();
 
       HashMap<String, Object> defaultUriVariables = Maps.newHashMap();
