@@ -13,12 +13,12 @@ public enum LocationType {
   GEOMETRIC_CENTER,
   APPROXIMATE;
 
-  public String value() {
-    return name();
-  }
-
   public static LocationType fromValue(String v) {
     return valueOf(v);
+  }
+
+  public String value() {
+    return name();
   }
 
 }

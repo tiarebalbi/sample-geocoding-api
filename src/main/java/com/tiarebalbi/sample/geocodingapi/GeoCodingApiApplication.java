@@ -1,6 +1,7 @@
 package com.tiarebalbi.sample.geocodingapi;
 
 import com.google.common.collect.Maps;
+import com.tiarebalbi.sample.geocodingapi.client.impl.GoogleApiErrorHandling;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,6 +37,8 @@ public class GeoCodingApiApplication {
       HashMap<String, Object> defaultUriVariables = Maps.newHashMap();
       defaultUriVariables.put("key", geoCodingApiProperties.getGoogleKey());
       restTemplate.setDefaultUriVariables(defaultUriVariables);
+
+      restTemplate.setErrorHandler(new GoogleApiErrorHandling());
 
       return restTemplate;
     }

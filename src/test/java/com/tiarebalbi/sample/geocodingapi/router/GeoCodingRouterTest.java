@@ -7,8 +7,8 @@ import org.junit.Test;
 
 public class GeoCodingRouterTest extends CamelTestSupport {
 
-  @Produce(uri = "restlet:http://localhost:808/camel/address/search/?address={address}")
-  protected ProducerTemplate testProducer;
+  @Produce(uri = "direct:lookup")
+  protected ProducerTemplate template;
 
   @Test
   public void shouldRequestSearch() {

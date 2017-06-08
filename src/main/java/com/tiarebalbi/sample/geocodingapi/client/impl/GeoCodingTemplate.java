@@ -26,7 +26,7 @@ public class GeoCodingTemplate implements GeoCodingOperations {
       return response.getBody();
     }
 
-    return new GoogleSearchResponse();
+    return null;
   }
 
   private String getEndpoint(String address) {

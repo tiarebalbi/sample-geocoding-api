@@ -11,26 +11,44 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
 public class GeoCodingTemplateTest {
 
   @MockBean
-  RestTemplate restTemplate;
+  private RestTemplate restTemplate;
 
   @Autowired
-  GeoCodingOperations geoCodingOperations;
+  private GeoCodingOperations geoCodingOperations;
 
   @Test
   public void shouldSearchAddressWithGoogleApi() {
-    given(this.restTemplate.getForEntity(any(), GoogleSearchResponse.class)).willReturn(ResponseEntity.ok(new GoogleSearchResponse()));
-    this.geoCodingOperations.lookup("Address");
-    verify(this.restTemplate).getForEntity(any(), GoogleSearchResponse.class);
+    given(
+      this.restTemplate.getForEntity("https://maps.googleapis.com/maps/api/geocode/xml?address=Address", GoogleSearchResponse.class)
+    ).willReturn(ResponseEntity.ok(new GoogleSearchResponse()));
+
+    GoogleSearchResponse result = this.geoCodingOperations.lookup("Address");
+    assertThat(result).isNotNull();
+    verify(this.restTemplate).getForEntity("https://maps.googleapis.com/maps/api/geocode/xml?address=Address",
+      GoogleSearchResponse.class);
+  }
+
+  @Test
+  public void shouldReturnNullIfNoContentAvailable() {
+    given(
+      this.restTemplate.getForEntity("https://maps.googleapis.com/maps/api/geocode/xml?address=Address", GoogleSearchResponse.class)
+    ).willReturn(ResponseEntity.ok().build());
+
+    GoogleSearchResponse result = this.geoCodingOperations.lookup("Address");
+
+    assertThat(result).isNull();
+    verify(this.restTemplate).getForEntity("https://maps.googleapis.com/maps/api/geocode/xml?address=Address",
+      GoogleSearchResponse.class);
+
   }
 
 }
