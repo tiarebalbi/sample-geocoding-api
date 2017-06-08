@@ -1,31 +1,25 @@
 package com.tiarebalbi.sample.geocodingapi.client.model;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = {"placeId", "formattedAddress", "addressComponent", "type", "geometry"})
+
+@XmlType(name = "Result", propOrder = {
+  "type",
+  "formattedAddress",
+  "geometry"
+})
 public class Result {
 
-  @XmlElement(name = "place_id")
-  private String placeId;
+  @XmlElement
+  protected String type;
+  @JacksonXmlProperty(localName = "formatted_address")
+  protected String formattedAddress;
 
-  @XmlElement(name = "formatted_address")
-  private String formattedAddress;
-
-  @XmlElement(name = "address_component")
-  private AddressComponent[] addressComponent;
-
-  private String type;
-
-  private Geometry geometry;
-
-  public String getPlaceId() {
-    return placeId;
-  }
-
-  public void setPlaceId(String placeId) {
-    this.placeId = placeId;
-  }
+  @XmlElement(required = true)
+  protected Geometry geometry;
 
   public String getFormattedAddress() {
     return formattedAddress;
@@ -35,12 +29,12 @@ public class Result {
     this.formattedAddress = formattedAddress;
   }
 
-  public AddressComponent[] getAddressComponent() {
-    return addressComponent;
+  public Geometry getGeometry() {
+    return geometry;
   }
 
-  public void setAddressComponent(AddressComponent[] addressComponent) {
-    this.addressComponent = addressComponent;
+  public void setGeometry(Geometry geometry) {
+    this.geometry = geometry;
   }
 
   public String getType() {
@@ -51,11 +45,7 @@ public class Result {
     this.type = type;
   }
 
-  public Geometry getGeometry() {
-    return geometry;
-  }
-
-  public void setGeometry(Geometry geometry) {
-    this.geometry = geometry;
+  public boolean hasGeometry() {
+    return geometry != null;
   }
 }

@@ -64,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jetty-starter</artifactId>
+            <artifactId>camel-restlet-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

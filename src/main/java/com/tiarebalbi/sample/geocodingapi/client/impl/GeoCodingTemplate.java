@@ -21,7 +21,12 @@ public class GeoCodingTemplate implements GeoCodingOperations {
   public GoogleSearchResponse lookup(String address) {
     String endpoint = getEndpoint(address);
     ResponseEntity<GoogleSearchResponse> response = this.restTemplate.getForEntity(endpoint, GoogleSearchResponse.class);
-    return response.getBody();
+
+    if (response.hasBody()) {
+      return response.getBody();
+    }
+
+    return new GoogleSearchResponse();
   }
 
   private String getEndpoint(String address) {

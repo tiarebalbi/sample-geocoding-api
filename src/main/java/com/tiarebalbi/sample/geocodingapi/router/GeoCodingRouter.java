@@ -1,7 +1,7 @@
 package com.tiarebalbi.sample.geocodingapi.router;
 
-import com.tiarebalbi.sample.geocodingapi.client.model.GoogleSearchResponse;
 import com.tiarebalbi.sample.geocodingapi.router.model.GeoCodeResponse;
+import com.tiarebalbi.sample.geocodingapi.router.processor.GeoCodeResponseProcessor;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -35,7 +35,7 @@ public class GeoCodingRouter extends RouteBuilder {
     from("direct:lookup")
       .log(LoggingLevel.INFO, "Searching for the address: ${header.address}")
       .to("bean:geoCodingTemplate?method=lookup(${header.address})")
-      .transform().body(GoogleSearchResponse.class);
+      .bean(GeoCodeResponseProcessor.class, "parseToGeoCodeResponse");
 
   }
 }

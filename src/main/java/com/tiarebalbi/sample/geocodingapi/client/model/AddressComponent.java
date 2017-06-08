@@ -1,18 +1,29 @@
 package com.tiarebalbi.sample.geocodingapi.client.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@XmlType(propOrder = {"longName", "shortName", "type"})
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import java.util.List;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "AddressComponent", propOrder = {
+  "longName",
+  "shortName",
+  "type"
+})
 public class AddressComponent {
 
-  @XmlElement(name = "long_name")
-  private String longName;
+  @JacksonXmlProperty(localName = "long_name")
+  protected String longName;
 
-  @XmlElement(name = "short_name")
-  private String shortName;
+  @JacksonXmlProperty(localName = "short_name")
+  protected String shortName;
 
-  private String type;
+  @JacksonXmlProperty
+  protected List<AddressComponentType> type;
 
   public String getLongName() {
     return longName;
@@ -30,11 +41,11 @@ public class AddressComponent {
     this.shortName = shortName;
   }
 
-  public String getType() {
+  public List<AddressComponentType> getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(List<AddressComponentType> type) {
     this.type = type;
   }
 }
